@@ -1,4 +1,4 @@
-﻿namespace WPRRewrite2.Modellen.Account;
+﻿namespace WPRRewrite2.Modellen.Accounts;
 
 public abstract class AccountMedewerker : Account
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WPRRewrite2.Modellen;
 using WPRRewrite2.Modellen.Abbo;
-using WPRRewrite2.Modellen.Account;
+using WPRRewrite2.Modellen.Accounts;
 using WPRRewrite2.Modellen.Kar;
 
 namespace WPRRewrite2;

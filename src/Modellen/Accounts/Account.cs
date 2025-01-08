@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using WPRRewrite2.DTOs;
 using WPRRewrite2.Interfaces;
 
-namespace WPRRewrite2.Modellen.Account;
+namespace WPRRewrite2.Modellen.Accounts;
 
 public abstract class Account : IAccount
 {
@@ -12,6 +13,9 @@ public abstract class Account : IAccount
     public int AccountId { get; set; }
     [MaxLength(255)] public string Email { get; set; }
     [MaxLength(255)] public string Wachtwoord { get; set; }
+    
+    public int ReserveringId { get; set; }
+    [ForeignKey(nameof(ReserveringId))] private Reservering Reservering { get; set; }
 
     protected Account(string email, string wachtwoord)
     {

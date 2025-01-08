@@ -1,11 +1,10 @@
 ﻿using WPRRewrite2.DTOs;
-using WPRRewrite2.Interfaces;
 
-namespace WPRRewrite2.Modellen.Account;
+namespace WPRRewrite2.Modellen.Accounts;
 
-public class AccountMedewerkerFrontoffice : AccountMedewerker
+public class AccountMedewerkerBackoffice : AccountMedewerker
 {
-    public AccountMedewerkerFrontoffice(string email, string wachtwoord) 
+    public AccountMedewerkerBackoffice(string email, string wachtwoord) 
         : base(email, wachtwoord)
     {
     }

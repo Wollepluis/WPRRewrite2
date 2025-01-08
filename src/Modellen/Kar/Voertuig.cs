@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using WPRRewrite2.Interfaces;
 
 namespace WPRRewrite2.Modellen.Kar;
@@ -42,5 +43,21 @@ public class Voertuig : IVoertuig
     public void UpdateVoertuigStatus(string status)
     {
         VoertuigStatus = status;
+    }
+
+    public int BerekenKosten()
+    {
+        var days = (voertuigReservering.Einddatum - voertuigReservering.Begindatum).Days;
+        var bijkomendeKosten = 0;
+        if (this.typeof(Auto))
+        {
+            bijkomendeKosten = 100 + 100 * days; 
+        } else if (voertuig.VoertuigType == "Caravan")
+        {
+            bijkomendeKosten = 200 + 200 * days; 
+        } else if (voertuig.VoertuigType == "Camper")
+        {
+            bijkomendeKosten = 300 + 300 * days;
+        }
     }
 }

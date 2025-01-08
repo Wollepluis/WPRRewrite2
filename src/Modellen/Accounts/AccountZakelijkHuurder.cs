@@ -1,6 +1,6 @@
 ﻿using WPRRewrite2.DTOs;
 
-namespace WPRRewrite2.Modellen.Account;
+namespace WPRRewrite2.Modellen.Accounts;
 
 public class AccountZakelijkHuurder : AccountZakelijk
 {

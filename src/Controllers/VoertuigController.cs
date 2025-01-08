@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WPRRewrite2.Interfaces;
+using WPRRewrite2.Modellen;
 using WPRRewrite2.Modellen.Kar;
 
 namespace WPRRewrite2.Controllers;
@@ -17,7 +18,7 @@ public class VoertuigController : ControllerBase
     }
 
     [HttpGet("AlleVoertuigen")]
-    public async Task<ActionResult<IEnumerable<IVoertuig>>> GetAll([FromQuery] DateTime? startDatum, [FromQuery] DateTime? eindDatum, [FromQuery] int? accountId)
+    public async Task<ActionResult<IEnumerable<IVoertuig>>> GetAll([FromQuery] DateTime? startDatum, [FromQuery] DateTime? eindDatum)
     {
         IQueryable<Voertuig> query = _context.Voertuigen;
     
@@ -28,15 +29,7 @@ public class VoertuigController : ControllerBase
         
             query = query
                 .Include(v => v.Reserveringen)
-                .Where(v => !v.Reserveringen.Any() || 
-                            !v.Reserveringen.Any(r => 
-                                r.Begindatum <= eind && 
-                                r.Einddatum >= start));
-        }
-
-        if (accountId.HasValue)
-        {
-            query = query.Where(v => v.AccountId == accountId.Value);
+                .Where(v => !v.Reserveringen.Any() || !v.Reserveringen.Any(r => r.Begindatum <= eind && r.Einddatum >= start));
         }
 
         var voertuigen = await query.ToListAsync();

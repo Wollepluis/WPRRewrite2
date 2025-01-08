@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WPRRewrite2.DTOs;
 using WPRRewrite2.Interfaces;
-using WPRRewrite2.Modellen.Account;
+using WPRRewrite2.Modellen.Accounts;
 
 namespace WPRRewrite2.Controllers;
 

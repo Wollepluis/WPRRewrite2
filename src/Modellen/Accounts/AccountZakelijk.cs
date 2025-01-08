@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using WPRRewrite2.Interfaces;
 
-namespace WPRRewrite2.Modellen.Account;
+namespace WPRRewrite2.Modellen.Accounts;
 
 public abstract class AccountZakelijk : Account, IAccountZakelijk
 {

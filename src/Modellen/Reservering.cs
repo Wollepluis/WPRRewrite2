@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using WPRRewrite2.Modellen.Accounts;
 using WPRRewrite2.Modellen.Kar;
     
 namespace WPRRewrite2.Modellen;
@@ -9,6 +10,9 @@ public class Reservering
     public DateOnly Begindatum { get; set; }
     public DateOnly Einddatum { get; set; }
 
+    public int AccountId { get; set; }
+    [ForeignKey(nameof(AccountId))] public Account Account;
+    
     public int VoertuigId { get; set; }
     [ForeignKey(nameof(VoertuigId))] public Voertuig Voertuig { get; set; }
 
