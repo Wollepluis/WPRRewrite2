@@ -341,3 +341,4 @@ C:\Users\Mark\RiderProjects\WPRRewrite2\obj\Debug\net8.0\scopedcss\bundle\WPRRew
 C:\Users\Mark\RiderProjects\WPRRewrite2\obj\Debug\net8.0\WPRRewri.B18BDB88.Up2Date
 C:\Users\Mark\RiderProjects\WPRRewrite2\obj\Debug\net8.0\WPRRewrite2.genruntimeconfig.cache
 C:\Users\Mark\RiderProjects\WPRRewrite2\obj\Debug\net8.0\ref\WPRRewrite2.dll
+C:\Users\Mark\RiderProjects\WPRRewrite2\obj\Debug\net8.0\WPRRewrite2.sourcelink.json

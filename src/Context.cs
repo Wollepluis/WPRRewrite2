@@ -27,9 +27,9 @@ public class Context : DbContext
 
         builder.Entity<Account>()
             .HasDiscriminator<string>("AccountType")
-            .HasValue<AccountParticulier>("Particulier")
-            .HasValue<AccountMedewerkerFrontoffice>("Frontoffice")
-            .HasValue<AccountMedewerkerBackoffice>("Backoffice")
+            .HasValue<AccountParticulier>("ParticulierAccount")
+            .HasValue<AccountMedewerkerFrontoffice>("FrontofficeAccount")
+            .HasValue<AccountMedewerkerBackoffice>("BackofficeAccount")
             .HasValue<AccountZakelijkBeheerder>("ZakelijkBeheerder")
             .HasValue<AccountZakelijkHuurder>("ZakelijkHuurder");
 

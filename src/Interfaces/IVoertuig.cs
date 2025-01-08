@@ -1,4 +1,6 @@
-﻿namespace WPRRewrite2.Interfaces;
+﻿using WPRRewrite2.Modellen;
+
+namespace WPRRewrite2.Interfaces;
 
 public interface IVoertuig
 {
@@ -11,6 +13,7 @@ public interface IVoertuig
     int Prijs { get; set; }
     string VoertuigStatus { get; set; }
     string BrandstofType { get; set; }
+    List<Reservering> Reserveringen { get; set; }
 
     public void UpdateVoertuig(IVoertuig updatedVoertuig);
 }

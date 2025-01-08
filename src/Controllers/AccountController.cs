@@ -19,10 +19,10 @@ public class AccountController : ControllerBase
     }
 
     [HttpGet("AlleAccounts")]
-    public async Task<ActionResult<IEnumerable<IAccount>>> GetAll()
+    public async Task<ActionResult<IEnumerable<IAccount>>> GetAll([FromQuery] string? accountType, [FromQuery] int? bedrijfId)
     {
         var accounts = await _context.Accounts.ToListAsync();
-        if (accounts.Any()) 
+        if (accounts.Count == 0) 
             return NotFound(new { Message = "Er staan geen accounts in de database" });
 
         return Ok(new { accounts });
