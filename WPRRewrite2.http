@@ -1,0 +1,6 @@
+@WPRRewrite2_HostAddress = http://localhost:5262
+
+GET {{WPRRewrite2_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
