@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TEBHXlNwMG8=",
+  "dgSpecHash": "2oLHv+6Gi90=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite2\\WPRRewrite2.csproj",
+  "projectFilePath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite22\\WPRRewrite2.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mark\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Mark\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

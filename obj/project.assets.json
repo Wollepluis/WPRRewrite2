@@ -5233,11 +5233,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite2\\WPRRewrite2.csproj",
+      "projectUniqueName": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite22\\WPRRewrite2.csproj",
       "projectName": "WPRRewrite2",
-      "projectPath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite2\\WPRRewrite2.csproj",
+      "projectPath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite22\\WPRRewrite2.csproj",
       "packagesPath": "C:\\Users\\Mark\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite2\\obj\\",
+      "outputPath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite22\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Mark\\AppData\\Roaming\\NuGet\\NuGet.Config",
