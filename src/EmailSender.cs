@@ -65,12 +65,12 @@ public class EmailSender
         return mailBericht;
     }
     
-    public static void VerstuurBevestigingEmail(string ontvangerEmail, string? bedrijfsNaam = null)
+    public static void VerstuurBevestigingEmail(string ontvangerEmail)
     {
         const string onderwerp = "Account Aangemaakt";
         _htmlBody = $@"
             <h1>Welkom!</h1>
-            <p>Uw account bij <strong>{bedrijfsNaam}</strong> ({ontvangerEmail}) is succesvol aangemaakt!</p>
+            <p>Uw account ({ontvangerEmail}) is succesvol aangemaakt!</p>
             <p>Bedankt voor uw registratie.</p>
             <p><a href='http://www.example.com' class='button'>Klik hier om in te loggen</a></p>
             ";
