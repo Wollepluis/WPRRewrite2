@@ -45,19 +45,19 @@ public class Voertuig : IVoertuig
         VoertuigStatus = status;
     }
 
-    public int BerekenKosten()
-    {
-        var days = (voertuigReservering.Einddatum - voertuigReservering.Begindatum).Days;
-        var bijkomendeKosten = 0;
-        if (this.typeof(Auto))
-        {
-            bijkomendeKosten = 100 + 100 * days; 
-        } else if (voertuig.VoertuigType == "Caravan")
-        {
-            bijkomendeKosten = 200 + 200 * days; 
-        } else if (voertuig.VoertuigType == "Camper")
-        {
-            bijkomendeKosten = 300 + 300 * days;
-        }
-    }
+    // public int BerekenKosten()
+    // {
+    //     var days = (voertuigReservering.Einddatum - voertuigReservering.Begindatum).Days;
+    //     var bijkomendeKosten = 0;
+    //     if (this.typeof(Auto))
+    //     {
+    //         bijkomendeKosten = 100 + 100 * days; 
+    //     } else if (voertuig.VoertuigType == "Caravan")
+    //     {
+    //         bijkomendeKosten = 200 + 200 * days; 
+    //     } else if (voertuig.VoertuigType == "Camper")
+    //     {
+    //         bijkomendeKosten = 300 + 300 * days;
+    //     }
+    // }
 }

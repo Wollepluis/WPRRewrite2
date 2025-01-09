@@ -36,9 +36,9 @@ public class ReserveringController : ControllerBase
         return Ok(new { reserveringen });
     }
     
-    [HttpPost("ReserveerVoertuig")]
-    public async Task<IActionResult> ReserveerVoertuig([FromBody] ReserveringDto reservering)
-    {
-        
-    }
+    // [HttpPost("ReserveerVoertuig")]
+    // public async Task<IActionResult> ReserveerVoertuig([FromBody] ReserveringDto reservering)
+    // {
+    //     
+    // }
 }
