@@ -79,7 +79,7 @@ public class EmailSender
         VerstuurEmail(mailBericht);
     }
     
-    public static void VerstuurWijzigReserveringEmail(string ontvangerEmail, string? bedrijfsnaam = null)
+    public static void VerstuurWijzigReserveringEmail(string ontvangerEmail)
     {
         const string onderwerp = "Uw reservering is gewijzigd!";
         _htmlBody= @"
@@ -92,7 +92,7 @@ public class EmailSender
         VerstuurEmail(mailBericht);
     }
     
-    public static void VerstuurVerwijderReserveringEmail(string ontvangerEmail, string? bedrijfsNaam = null)
+    public static void VerstuurVerwijderReserveringEmail(string ontvangerEmail)
     {
         const string onderwerp = "Uw reservering is verwijderd!";
         _htmlBody= @"

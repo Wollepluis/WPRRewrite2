@@ -62,6 +62,8 @@ public class AccountController : ControllerBase
     
         _context.Accounts.Add(nieuwAccount);
         await _context.SaveChangesAsync();
+        
+        EmailSender.VerstuurBevestigingEmail(nieuwAccount.Email);
 
         return Ok(new { nieuwAccount.AccountId, Message = $"Account {nieuwAccount.Email} is succesvol aangemaakt" });
     }
@@ -87,6 +89,8 @@ public class AccountController : ControllerBase
 
         _context.Accounts.Remove(account);
         await _context.SaveChangesAsync();
+        
+        EmailSender.VerstuurVerwijderEmail(account.Email);
 
         return Ok(new { Message = $"Account {account.Email} succesvol verwijderd" });
     }
