@@ -42,7 +42,8 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
         var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Email == login.Email);
-        if (account == null) return Unauthorized(new { Message = $"Account {login.Email} niet gevonden" });
+        if (account == null) 
+            return Unauthorized(new { Message = $"Account {login.Email} niet gevonden" });
         
         if (account.VerifyPassword(login.Wachtwoord) == PasswordVerificationResult.Failed) 
             return Unauthorized(new { Message = "Incorrect wachtwoord" });
@@ -54,7 +55,8 @@ public class AccountController : ControllerBase
     public async Task<ActionResult<IAccount>> Create([FromBody] AccountDto gegevens)
     {
         var checkEmail = _context.Accounts.Any(a => a.Email == gegevens.Email);
-        if (checkEmail) return BadRequest("Een gebruiker met deze Email bestaat al");
+        if (checkEmail) 
+            return BadRequest("Een gebruiker met deze Email bestaat al");
         
         var nieuwAccount = Account.MaakAccount(gegevens);
     
@@ -70,7 +72,7 @@ public class AccountController : ControllerBase
         var account = await _context.Accounts.FindAsync(id);
         if (account == null)
             return NotFound(new { Message = $"Account met ID {id} staat niet in de database"});
-
+        
         account.UpdateAccount(nieuweGegevens);
 
         return Ok(new { Message = "Account succesvol geupdate" });

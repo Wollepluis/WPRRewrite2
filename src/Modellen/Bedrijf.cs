@@ -3,21 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WPRRewrite2.Modellen;
 
-public class Bedrijf
+public class Bedrijf(int kvkNummer, string bedrijfsnaam, string domeinnaam, int adresId)
 {
     public int BedrijfId { get; set; }
-    public int KvkNummer { get; set; }
-    [MaxLength(255)] public string Bedrijfsnaam { get; set; }
-    [MaxLength(255)] public string Domeinnaam { get; set; }
+    public int KvkNummer { get; set; } = kvkNummer;
+    [MaxLength(255)] public string Bedrijfsnaam { get; set; } = bedrijfsnaam;
+    [MaxLength(255)] public string Domeinnaam { get; set; } = domeinnaam;
 
-    public int AdresId { get; set; }
+    public int AdresId { get; set; } = adresId;
     [ForeignKey(nameof(AdresId))] public Adres Adres { get; set; }
-
-    public Bedrijf(int kvkNummer, string bedrijfsnaam, string domeinnaam, int adresId)
-    {
-        KvkNummer = kvkNummer;
-        Bedrijfsnaam = bedrijfsnaam;
-        Domeinnaam = domeinnaam;
-        AdresId = adresId;
-    }
 }

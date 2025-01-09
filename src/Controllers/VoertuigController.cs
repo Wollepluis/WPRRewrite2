@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using WPRRewrite2.DTOs;
 using WPRRewrite2.Interfaces;
 using WPRRewrite2.Modellen;
 using WPRRewrite2.Modellen.Kar;
@@ -8,14 +9,9 @@ namespace WPRRewrite2.Controllers;
 
 [ApiController]
 [Route("api/Voertuig")]
-public class VoertuigController : ControllerBase
+public class VoertuigController(Context context) : ControllerBase
 {
-    private readonly Context _context;
-
-    public VoertuigController(Context context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("AlleVoertuigen")]
     public async Task<ActionResult<IEnumerable<IVoertuig>>> GetAll([FromQuery] DateTime? startDatum, [FromQuery] DateTime? eindDatum)
@@ -50,6 +46,35 @@ public class VoertuigController : ControllerBase
             return NotFound(new { Message = $"Voertuig met ID {id} staat niet in de database" });
 
         return Ok(new { voertuig });
+    }
+
+    [HttpPost("VoegVoertuigToe")]
+    public async Task<ActionResult<IVoertuig>> Create(VoertuigDto voertuigDto)
+    {
+        var checkVoertuig = _context.Voertuigen
+            .Any(v => v.Merk == voertuigDto.Merk && v.Model == voertuigDto.Model);
+        if (checkVoertuig)
+            return BadRequest(new { Message = $"De {voertuigDto.Merk} {voertuigDto.Model} staat al in de Database" });
+        
+        var nieuwVoertuig = Voertuig.MaakVoertuig(voertuigDto);
+
+        _context.Voertuigen.Add(nieuwVoertuig);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { nieuwVoertuig.VoertuigId, Message = $"De {nieuwVoertuig.Merk} {nieuwVoertuig.Model} is succesvol aangemaakt" });
+    }
+
+    [HttpPut("UpdateVoertuig")]
+    public async Task<IActionResult> UpdateVoertuig([FromBody] IVoertuig updatedVoertuig)
+    {
+        var voertuig = await _context.Voertuigen.FindAsync(updatedVoertuig.VoertuigId);
+        if (voertuig == null)
+            return NotFound(new { Message = $"Het voertuig met ID {updatedVoertuig.VoertuigId} staat niet in de database" });
+        
+        voertuig.UpdateVoertuig(updatedVoertuig);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = $"{voertuig.Merk} {voertuig.Model} succesvol geupdate" });
     }
 
     [HttpDelete("Delete")]

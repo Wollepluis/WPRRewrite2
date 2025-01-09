@@ -7,14 +7,9 @@ namespace WPRRewrite2.Controllers;
 
 [ApiController]
 [Route("api/Bedrijf")]
-public class BedrijfController : ControllerBase
+public class BedrijfController(Context context) : ControllerBase
 {
-    private readonly Context _context;
-
-    public BedrijfController(Context context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("AlleBedrijven")]
     public async Task<ActionResult<IEnumerable<Bedrijf>>> GetAll()

@@ -7,14 +7,9 @@ namespace WPRRewrite2.Controllers;
 
 [ApiController]
 [Route("api/Reservering")]
-public class ReserveringController : ControllerBase
+public class ReserveringController(Context context) : ControllerBase
 {
-    private readonly Context _context;
-
-    public ReserveringController(Context context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("AlleReserveringen")]
     public async Task<ActionResult<IEnumerable<Reservering>>> GetAll()

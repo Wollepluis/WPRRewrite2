@@ -7,14 +7,9 @@ namespace WPRRewrite2.Controllers;
 
 [ApiController]
 [Route("api/Adres")]
-public class AdresController : ControllerBase
+public class AdresController(Context context) : ControllerBase
 {
-    private readonly Context _context;
-
-    public AdresController(Context context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("AlleAdressen")]
     public async Task<ActionResult<IEnumerable<Adres>>> GetAll()
