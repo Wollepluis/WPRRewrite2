@@ -23,8 +23,8 @@ public class VoertuigController(Context context) : ControllerBase
             var eind = DateOnly.FromDateTime(eindDatum.Value);
         
             query = query
-                .Include(v => v.Reserveringen)
-                .Where(v => !v.Reserveringen.Any() || !v.Reserveringen.Any(r => r.Begindatum <= eind && r.Einddatum >= start));
+                .Include(v => v.Reservering)
+                .Where(v => v.Reservering.Begindatum <= eind && v.Reservering.Einddatum >= start);
         }
 
         var voertuigen = await query.ToListAsync();

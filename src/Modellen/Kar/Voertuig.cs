@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations.Schema;
 using WPRRewrite2.DTOs;
 using WPRRewrite2.Interfaces;
 
@@ -17,7 +17,9 @@ public class Voertuig(string kenteken, string merk, string model, string kleur, 
     public int Prijs { get; set; } = prijs;
     [MaxLength(255)] public string VoertuigStatus { get; set; } = "Beschikbaar";
     [MaxLength(255)] public string BrandstofType { get; set; } = brandstofType;
-    public List<Reservering> Reserveringen { get; set; }
+
+    public int? ReserveringId { get; set; }
+    [ForeignKey(nameof(ReserveringId))] public Reservering Reservering { get; set; }
 
     public void UpdateVoertuig(IVoertuig voertuig)
     {

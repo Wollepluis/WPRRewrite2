@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using WPRRewrite2.Modellen;
-using WPRRewrite2.Modellen.Abbo;
 
 namespace WPRRewrite2.Interfaces;
 

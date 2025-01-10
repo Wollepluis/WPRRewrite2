@@ -54,5 +54,5 @@ public class ReserveringController(Context context) : ControllerBase
     }
     //Reservering CRUD
     
-    // Reserveer voetuig
+    // Reserveer Voertuig
 }

@@ -9,14 +9,9 @@ namespace WPRRewrite2.Controllers;
 
 [ApiController]
 [Route("api/[Controller]")]
-public class AccountController : ControllerBase
+public class AccountController(Context context) : ControllerBase
 {
-    private readonly Context _context;
-
-    public AccountController(Context context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
+    private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("GetAll")]
     public async Task<ActionResult<IEnumerable<IAccount>>> GetAll([FromQuery] string? accountType, [FromQuery] int? bedrijfId)
@@ -77,7 +72,7 @@ public class AccountController : ControllerBase
         
         account.UpdateAccount(nieuweGegevens);
 
-        return Ok(new { Message = "Account succesvol geupdate" });
+        return Ok(new { Message = "Account succesvol aangepast" });
     }
     
     //Zakelijk Huurder toevoegen aan abonnement
