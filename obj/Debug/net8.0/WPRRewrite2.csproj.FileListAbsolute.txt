@@ -525,3 +525,15 @@ C:\Users\Morri\RiderProjects\WPRRewrite2\obj\Debug\net8.0\refint\WPRRewrite2.dll
 C:\Users\Morri\RiderProjects\WPRRewrite2\obj\Debug\net8.0\WPRRewrite2.pdb
 C:\Users\Morri\RiderProjects\WPRRewrite2\obj\Debug\net8.0\WPRRewrite2.genruntimeconfig.cache
 C:\Users\Morri\RiderProjects\WPRRewrite2\obj\Debug\net8.0\ref\WPRRewrite2.dll
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\appsettings.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.deps.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.runtimeconfig.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.staticwebassets.endpoints.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.Tests.deps.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.Tests.runtimeconfig.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.Tests\obj\project.assets.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.Tests\obj\project.packagespec.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.Tests\obj\TestProject.csproj.nuget.dgspec.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\bin\Debug\net8.0\WPRRewrite2.Tests\obj\WPRRewrite2.Tests.csproj.nuget.dgspec.json
+C:\Users\Morri\RiderProjects\WPRRewrite2\bin\Debug\net8.0\WPRRewrite2.Tests\obj\Debug\net8.0\WPRRewrite2.Tests.sourcelink.json
