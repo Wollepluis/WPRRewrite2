@@ -38,11 +38,6 @@ public class Context : DbContext
             .HasValue<Auto>("Auto")
             .HasValue<Camper>("Camper")
             .HasValue<Caravan>("Caravan");
-
-        builder.Entity<Abonnement>()
-            .HasDiscriminator<string>("AbonnementType")
-            .HasValue<PayAsYouGo>("PayAsYouGo")
-            .HasValue<UpFront>("UpFront");
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)

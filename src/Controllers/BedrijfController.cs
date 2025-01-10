@@ -6,12 +6,12 @@ using WPRRewrite2.Modellen;
 namespace WPRRewrite2.Controllers;
 
 [ApiController]
-[Route("api/Bedrijf")]
+[Route("api/[Controller]")]
 public class BedrijfController(Context context) : ControllerBase
 {
     private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
-    [HttpGet("AlleBedrijven")]
+    [HttpGet("GetAll")]
     public async Task<ActionResult<IEnumerable<Bedrijf>>> GetAll()
     {
         var bedrijven = await _context.Bedrijven.ToListAsync();
@@ -21,7 +21,7 @@ public class BedrijfController(Context context) : ControllerBase
         return Ok(new { bedrijven });
     }
 
-    [HttpGet("SpecifiekBedrijf")]
+    [HttpGet("GetSpecific")]
     public async Task<ActionResult<Bedrijf>> GetSpecific([FromQuery] int id)
     {
         var bedrijf = await _context.Adressen.FindAsync(id);
@@ -30,8 +30,10 @@ public class BedrijfController(Context context) : ControllerBase
 
         return Ok(new { bedrijf });
     }
+    
+    // Get Bedrijfstatistieken
 
-    [HttpPost("MaakBedrijf")]
+    [HttpPost("Create")]
     public async Task<ActionResult<Bedrijf>> Create([FromBody] BedrijfDto bedrijfDto)
     {
         var checkBedrijf = _context.Bedrijven.Any(b => b.KvkNummer == bedrijfDto.KvkNummer);

@@ -6,12 +6,12 @@ using WPRRewrite2.Modellen;
 namespace WPRRewrite2.Controllers;
 
 [ApiController]
-[Route("api/Adres")]
+[Route("api/[Controller]")]
 public class AdresController(Context context) : ControllerBase
 {
     private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
-    [HttpGet("AlleAdressen")]
+    [HttpGet("GetAll")]
     public async Task<ActionResult<IEnumerable<Adres>>> GetAll()
     {
         var adressen = await _context.Adressen.ToListAsync();
@@ -21,7 +21,7 @@ public class AdresController(Context context) : ControllerBase
         return Ok(new { adressen });
     }
 
-    [HttpGet("SpecifiekAdres")]
+    [HttpGet("GetSpecific")]
     public async Task<ActionResult<Adres>> GetSpecific([FromQuery] int id)
     {
         var adres = await _context.Adressen.FindAsync(id);
@@ -31,7 +31,7 @@ public class AdresController(Context context) : ControllerBase
         return Ok(new { adres });
     }
 
-    [HttpPost("ZoekAdres")]
+    [HttpPost("Create")]
     public async Task<ActionResult<Adres>> Create([FromBody] AdresDto gegevens)
     {
         var adres = await _context.Adressen

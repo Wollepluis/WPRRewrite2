@@ -2,13 +2,9 @@
 
 namespace WPRRewrite2.Modellen.Accounts;
 
-public class AccountZakelijkBeheerder : AccountZakelijk
+public class AccountZakelijkBeheerder(string email, string wachtwoord, int bedrijfId)
+    : AccountZakelijk(email, wachtwoord, bedrijfId)
 {
-    public AccountZakelijkBeheerder(string email, string wachtwoord, int bedrijfId) 
-        : base(email, wachtwoord, bedrijfId)
-    {
-    }
-
     public override void UpdateAccount(AccountDto nieuweGegevens)
     {
         Email = nieuweGegevens.Email;

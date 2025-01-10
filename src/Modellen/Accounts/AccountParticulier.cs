@@ -3,22 +3,15 @@ using WPRRewrite2.DTOs;
 
 namespace WPRRewrite2.Modellen.Accounts;
 
-public class AccountParticulier : Account
+public class AccountParticulier(string email, string wachtwoord, string naam, int telefoonnummer, int adresId)
+    : Account(email, wachtwoord)
 {
-    public string Naam { get; set; }
-    public int Telefoonnummer { get; set; }
-    
-    public int AdresId { get; set; }
+    public string Naam { get; set; } = naam;
+    public int Telefoonnummer { get; set; } = telefoonnummer;
+
+    public int AdresId { get; set; } = adresId;
     [ForeignKey(nameof(AdresId))] public Adres Adres { get; set; }
 
-
-    public AccountParticulier(string email, string wachtwoord, string naam, int telefoonnummer, int adresId) 
-        : base(email, wachtwoord)
-    {
-        Naam = naam;
-        Telefoonnummer = telefoonnummer;
-        AdresId = adresId;
-    }
 
     public override void UpdateAccount(AccountDto nieuweGegevens)
     {

@@ -8,7 +8,7 @@ using WPRRewrite2.Modellen.Accounts;
 namespace WPRRewrite2.Controllers;
 
 [ApiController]
-[Route("api/Accounts")]
+[Route("api/[Controller]")]
 public class AccountController : ControllerBase
 {
     private readonly Context _context;
@@ -18,7 +18,7 @@ public class AccountController : ControllerBase
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    [HttpGet("AlleAccounts")]
+    [HttpGet("GetAll")]
     public async Task<ActionResult<IEnumerable<IAccount>>> GetAll([FromQuery] string? accountType, [FromQuery] int? bedrijfId)
     {
         var accounts = await _context.Accounts.ToListAsync();
@@ -28,7 +28,7 @@ public class AccountController : ControllerBase
         return Ok(new { accounts });
     }
 
-    [HttpGet("SpecifiekAccount")]
+    [HttpGet("GetSpecifiek")]
     public async Task<ActionResult<IAccount>> GetSpecific([FromQuery] int id)
     {
         var account = await _context.Accounts.FindAsync(id);
@@ -79,6 +79,10 @@ public class AccountController : ControllerBase
 
         return Ok(new { Message = "Account succesvol geupdate" });
     }
+    
+    //Zakelijk Huurder toevoegen aan abonnement
+    
+    //zakelijk huurder verwijderen van abonnement
 
     [HttpDelete("Delete")]
     public async Task<IActionResult> Delete([FromQuery] int id)
