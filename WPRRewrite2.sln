@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPRRewrite2", "WPRRewrite2.csproj", "{B94D3D5D-4F7B-4887-896C-2FE362FC8F99}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{74A504AD-1B65-416D-B4F1-26DE7EA06FF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPRRewrite2.Tests", "WPRRewrite2.Tests\WPRRewrite2.Tests.csproj", "{74A504AD-1B65-416D-B4F1-26DE7EA06FF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
