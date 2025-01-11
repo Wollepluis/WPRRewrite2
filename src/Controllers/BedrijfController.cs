@@ -15,7 +15,7 @@ public class BedrijfController(Context context) : ControllerBase
     public async Task<ActionResult<IEnumerable<Bedrijf>>> GetAll()
     {
         var bedrijven = await _context.Bedrijven.ToListAsync();
-        if (bedrijven.Any()) 
+        if (bedrijven.Count == 0) 
             return NotFound(new { Message = "Er staan geen bedrijven in de database" });
 
         return Ok(new { bedrijven });

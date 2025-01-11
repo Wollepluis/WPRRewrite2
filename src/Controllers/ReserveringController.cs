@@ -52,7 +52,6 @@ public class ReserveringController(Context context) : ControllerBase
 
         return Ok(new { Message = $"Reservering succesvol verwijderd" });
     }
-    //Reservering CRUD
     
     // Reserveer Voertuig
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WPRRewrite2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+542afbbe1e33edc7681aab47f3043527d49aede6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3b06676c2e9eb6ea5fa137d57cee21456bfaea30")]
 [assembly: System.Reflection.AssemblyProductAttribute("WPRRewrite2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WPRRewrite2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

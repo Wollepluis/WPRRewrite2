@@ -29,21 +29,21 @@ public class AccountController(Context context) : ControllerBase
         var account = await _context.Accounts.FindAsync(id);
         if (account == null) 
             return NotFound(new { Message = $"Account met ID {id} staat niet in de database"});
-
-        return Ok(new { account });
+        
+        return Ok(account.CastAccount(account));
     }
 
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
-        var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Email == login.Email);
+        var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Email.ToLower() == login.Email.ToLower());
         if (account == null) 
             return Unauthorized(new { Message = $"Account {login.Email} niet gevonden" });
         
         if (account.VerifyPassword(login.Wachtwoord) == PasswordVerificationResult.Failed) 
             return Unauthorized(new { Message = "Incorrect wachtwoord" });
 
-        return Ok(new { account.AccountId });
+        return Ok(account.CastAccount(account));
     }
     
     [HttpPost("Registreer")]
@@ -60,7 +60,8 @@ public class AccountController(Context context) : ControllerBase
         
         EmailSender.VerstuurBevestigingEmail(nieuwAccount.Email);
 
-        return Ok(new { nieuwAccount.AccountId, Message = $"Account {nieuwAccount.Email} is succesvol aangemaakt" });
+        var castedAccount = nieuwAccount.CastAccount(nieuwAccount);
+        return Ok(new { castedAccount, Message = $"Account {nieuwAccount.Email} is succesvol aangemaakt" });
     }
 
     [HttpPut("Update")]

@@ -59,4 +59,22 @@ public abstract class Account : IAccount
             _ => throw new ArgumentException($"Onbekend account type: {gegevens.AccountType}")
         };
     }
+
+    public IAccount CastAccount(IAccount account)
+    {
+        switch (account)
+        {
+            case AccountParticulier particulier:
+                return particulier;
+            case AccountZakelijkBeheerder beheerder:
+                return beheerder;
+            case AccountZakelijkHuurder huurder:
+                return huurder;
+            case AccountMedewerkerFrontoffice frontoffice:
+                return frontoffice;
+            case AccountMedewerkerBackoffice backoffice:
+                return backoffice;
+        }
+        return null;
+    }
 }

@@ -1,4 +1,5 @@
-﻿using WPRRewrite2.DTOs;
+﻿using Microsoft.AspNetCore.Identity;
+using WPRRewrite2.DTOs;
 
 namespace WPRRewrite2.Interfaces;
 
