@@ -5,21 +5,34 @@ using WPRRewrite2.Interfaces;
 
 namespace WPRRewrite2.Modellen.Kar;
 
-public class Voertuig(string kenteken, string merk, string model, string kleur, int aanschafjaar, int prijs,
-    string brandstofType) : IVoertuig
+public abstract class Voertuig : IVoertuig
 {
     public int VoertuigId { get; set; }
-    [MaxLength(255)] public string Kenteken { get; set; } = kenteken;
-    [MaxLength(255)] public string Merk { get; set; } = merk;
-    [MaxLength(255)] public string Model { get; set; } = model;
-    [MaxLength(255)] public string Kleur { get; set; } = kleur;
-    public int Aanschafjaar { get; set; } = aanschafjaar;
-    public int Prijs { get; set; } = prijs;
+    [MaxLength(255)] public string Kenteken { get; set; }
+    [MaxLength(255)] public string Merk { get; set; }
+    [MaxLength(255)] public string Model { get; set; }
+    [MaxLength(255)] public string Kleur { get; set; }
+    public int Aanschafjaar { get; set; }
+    public int Prijs { get; set; }
     [MaxLength(255)] public string VoertuigStatus { get; set; } = "Beschikbaar";
-    [MaxLength(255)] public string BrandstofType { get; set; } = brandstofType;
+    [MaxLength(255)] public string BrandstofType { get; set; }
 
     public int? ReserveringId { get; set; }
     [ForeignKey(nameof(ReserveringId))] public Reservering Reservering { get; set; }
+
+    protected Voertuig() {}
+
+    protected Voertuig(string kenteken, string merk, string model, string kleur, int aanschafjaar, int prijs,
+        string brandstofType)
+    {
+        Kenteken = kenteken;
+        Merk = merk;
+        Model = model;
+        Kleur = kleur;
+        Aanschafjaar = aanschafjaar;
+        Prijs = prijs;
+        BrandstofType = brandstofType;
+    }
 
     public void UpdateVoertuig(IVoertuig voertuig)
     {
@@ -34,26 +47,37 @@ public class Voertuig(string kenteken, string merk, string model, string kleur, 
 
     public static Voertuig MaakVoertuig(VoertuigDto gegevens)
     {
-        Voertuig nieuwVoertuig;
-        switch (gegevens.VoertuigType)
+        return gegevens.VoertuigType switch
         {
-            case "Auto":
-                nieuwVoertuig = new Auto(gegevens.Kenteken, gegevens.Merk, gegevens.Model, gegevens.Kleur,
-                    gegevens.Aanschafjaar, gegevens.Prijs, gegevens.BrandstofType);
-                break;
-            case "Camper":
-                nieuwVoertuig = new Camper(gegevens.Kenteken, gegevens.Merk, gegevens.Model, gegevens.Kleur,
-                    gegevens.Aanschafjaar, gegevens.Prijs, gegevens.BrandstofType);
-                break;
-            case "Caravan":
-                nieuwVoertuig = new Caravan(gegevens.Kenteken, gegevens.Merk, gegevens.Model, gegevens.Kleur,
-                    gegevens.Aanschafjaar, gegevens.Prijs, gegevens.BrandstofType);
-                break;
-            default:
-                throw new ArgumentException($"Onbekend account type: {gegevens.VoertuigType}");
-        }
-
-        return nieuwVoertuig;
+            "Auto" => new Auto(
+                gegevens.Kenteken, 
+                gegevens.Merk, 
+                gegevens.Model, 
+                gegevens.Kleur,
+                gegevens.Aanschafjaar, 
+                gegevens.Prijs, 
+                gegevens.BrandstofType
+                ),
+            "Camper" => new Camper(
+                gegevens.Kenteken, 
+                gegevens.Merk, 
+                gegevens.Model, 
+                gegevens.Kleur,
+                gegevens.Aanschafjaar, 
+                gegevens.Prijs, 
+                gegevens.BrandstofType
+                ),
+            "Caravan" => new Caravan(
+                gegevens.Kenteken, 
+                gegevens.Merk, 
+                gegevens.Model, 
+                gegevens.Kleur,
+                gegevens.Aanschafjaar, 
+                gegevens.Prijs, 
+                gegevens.BrandstofType
+                ),
+            _ => throw new ArgumentException($"Onbekend account type: {gegevens.VoertuigType}")
+        };
     }
     
     // public int BerekenKosten()

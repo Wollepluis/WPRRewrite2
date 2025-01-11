@@ -20,4 +20,17 @@ public class Reservering
 
     public double TotaalPrijs { get; set; }
     public bool IsBetaald { get; set; }
+    
+    public Reservering() {}
+    public Reservering(DateOnly begindatum, DateOnly einddatum, int accountId, int voertuigId, bool isGoedgekeurd,
+        double totaalPrijs, bool isBetaald)
+    {
+        Begindatum = begindatum;
+        Einddatum = einddatum;
+        AccountId = accountId;
+        VoertuigId = voertuigId;
+        IsGoedgekeurd = isGoedgekeurd;
+        TotaalPrijs = totaalPrijs;
+        IsBetaald = isBetaald;
+    }
 }

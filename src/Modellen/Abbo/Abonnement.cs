@@ -5,35 +5,48 @@ using WPRRewrite2.Interfaces;
 
 namespace WPRRewrite2.Modellen.Abbo;
 
-public abstract class Abonnement(int maxVoertuigen, int maxWerknemers, DateOnly begindatum, string abonnementType, 
-    int bedrijfId) : IAbonnement
+public abstract class Abonnement : IAbonnement
 {
     public int AbonnementId { get; set; }
-    public int MaxVoertuigen { get; set; } = maxVoertuigen;
-    public int MaxWerknemers { get; set; } = maxWerknemers;
-    public DateOnly BeginDatum { get; set; } = begindatum;
+    public int MaxVoertuigen { get; set; }
+    public int MaxWerknemers { get; set; }
+    public DateOnly BeginDatum { get; set; }
     
-    [MaxLength(255)]public string AbonnementType { get; set; } = abonnementType;
+    [MaxLength(255)]public string AbonnementType { get; set; }
 
-    public int BedrijfId { get; set; } = bedrijfId;
+    public int BedrijfId { get; set; }
     [ForeignKey(nameof(BedrijfId))] public Bedrijf Bedrijf { get; set; }
+
+    protected Abonnement() {}
+
+    protected Abonnement(int maxVoertuigen, int maxWerknemers, DateOnly begindatum, string abonnementType, int bedrijfId)
+    {
+        MaxVoertuigen = maxVoertuigen;
+        MaxWerknemers = maxWerknemers;
+        BeginDatum = begindatum;
+        AbonnementType = abonnementType;
+        BedrijfId = bedrijfId;
+    }
     
     public static Abonnement MaakAbonnement(AbonnementDto gegevens)
     {
-        Abonnement nieuwAbonnement;
-        switch (gegevens.AbonnementType)
+        return gegevens.AbonnementType switch
         {
-            case "UpFront":
-                nieuwAbonnement = new UpFront(gegevens.MaxVoertuigen, gegevens.MaxWerknemers, gegevens.BeginDatum,
-                    gegevens.AbonnementType, gegevens.BedrijfId);
-                break;
-            case "PayAsYouGo":
-                nieuwAbonnement = new PayAsYouGo(gegevens.MaxVoertuigen, gegevens.MaxWerknemers, gegevens.BeginDatum,
-                    gegevens.AbonnementType, gegevens.BedrijfId);
-                break;
-            default:
-                throw new ArgumentException($"Onbekend account type: {gegevens.AbonnementType}");
-        }
-        return nieuwAbonnement;
+            "UpFront" => new UpFront(
+                gegevens.MaxVoertuigen, 
+                gegevens.MaxWerknemers, 
+                gegevens.BeginDatum,
+                gegevens.AbonnementType, 
+                gegevens.BedrijfId
+            ),
+            "PayAsYouGo" => new PayAsYouGo(
+                gegevens.MaxVoertuigen, 
+                gegevens.MaxWerknemers, 
+                gegevens.BeginDatum,
+                gegevens.AbonnementType, 
+                gegevens.BedrijfId
+            ),
+            _ => throw new ArgumentException($"Onbekend account type: {gegevens.AbonnementType}")
+        };
     }
 }

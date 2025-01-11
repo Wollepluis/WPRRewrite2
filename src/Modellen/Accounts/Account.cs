@@ -12,7 +12,8 @@ public abstract class Account : IAccount
     public int AccountId { get; set; }
     [MaxLength(255)] public string Email { get; set; }
     [MaxLength(255)] public string Wachtwoord { get; set; }
-
+    
+    protected Account() {}
     protected Account(string email, string wachtwoord)
     {
         Email = email;
@@ -28,30 +29,34 @@ public abstract class Account : IAccount
 
     public static Account MaakAccount(AccountDto gegevens)
     {
-        Account nieuwAccount;
-        switch (gegevens.AccountType)
+        return gegevens.AccountType switch
         {
-            case "Particulier":
-                nieuwAccount = new AccountParticulier(gegevens.Email, gegevens.Wachtwoord, gegevens.Naam, 
-                    gegevens.Telefoonnummer, gegevens.AdresId);
-                break;
-            case "ZakelijkBeheerder":
-                nieuwAccount = new AccountZakelijkBeheerder(gegevens.Email, gegevens.Wachtwoord, gegevens.BedrijfId);
-                break;
-            case "ZakelijkHuurder":
-                nieuwAccount = new AccountZakelijkHuurder(gegevens.Email, gegevens.Wachtwoord, gegevens.BedrijfId);
-                break;
-            case "Frontoffice":
-                nieuwAccount =
-                    new AccountMedewerkerFrontoffice(gegevens.Email, gegevens.Wachtwoord);
-                break;
-            case "Backoffice":
-                nieuwAccount = new AccountMedewerkerBackoffice(gegevens.Email, gegevens.Wachtwoord);
-                break;
-            default:
-                throw new ArgumentException($"Onbekend account type: {gegevens.AccountType}");
-        }
-
-        return nieuwAccount;
+            "Particulier" => new AccountParticulier(
+                gegevens.Email, 
+                gegevens.Wachtwoord, 
+                gegevens.Naam,
+                gegevens.Telefoonnummer, 
+                gegevens.AdresId
+                ),
+            "ZakelijkBeheerder" => new AccountZakelijkBeheerder(
+                gegevens.Email, 
+                gegevens.Wachtwoord, 
+                gegevens.BedrijfId
+                ),
+            "ZakelijkHuurder" => new AccountZakelijkHuurder(
+                gegevens.Email, 
+                gegevens.Wachtwoord, 
+                gegevens.BedrijfId
+                ),
+            "Frontoffice" => new AccountMedewerkerFrontoffice(
+                gegevens.Email, 
+                gegevens.Wachtwoord
+                ),
+            "Backoffice" => new AccountMedewerkerBackoffice(
+                gegevens.Email, 
+                gegevens.Wachtwoord
+                ),
+            _ => throw new ArgumentException($"Onbekend account type: {gegevens.AccountType}")
+        };
     }
 }

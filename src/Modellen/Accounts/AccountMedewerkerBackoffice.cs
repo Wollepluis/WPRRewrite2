@@ -2,8 +2,12 @@
 
 namespace WPRRewrite2.Modellen.Accounts;
 
-public class AccountMedewerkerBackoffice(string email, string wachtwoord) : AccountMedewerker(email, wachtwoord)
+public class AccountMedewerkerBackoffice: AccountMedewerker
 {
+    public AccountMedewerkerBackoffice() {}
+    public AccountMedewerkerBackoffice(string email, string wachtwoord) 
+        : base(email, wachtwoord)
+    {}
     public override void UpdateAccount(AccountDto nieuweGegevens)
     {
         Email = nieuweGegevens.Email;
