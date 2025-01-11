@@ -10,16 +10,16 @@ public class Bedrijf
     [MaxLength(255)] public string Bedrijfsnaam { get; set; }
     [MaxLength(255)] public string Domeinnaam { get; set; }
 
-    public int AdresId { get; set; }
-    [ForeignKey(nameof(AdresId))] public Adres Adres { get; set; }
+    public int BedrijfAdres { get; set; }
+    [ForeignKey(nameof(BedrijfAdres))] public Adres Adres { get; set; }
     
     public Bedrijf() {}
 
-    public Bedrijf(int kvkNummer, string bedrijfsnaam, string domeinnaam, int adresId)
+    public Bedrijf(int kvkNummer, string bedrijfsnaam, string domeinnaam, int bedrijfAdres)
     {
         KvkNummer = kvkNummer;
         Bedrijfsnaam = bedrijfsnaam;
         Domeinnaam = domeinnaam;
-        AdresId = adresId;
+        BedrijfAdres = bedrijfAdres;
     }
 }

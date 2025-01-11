@@ -15,7 +15,7 @@ public class AdresController(Context context) : ControllerBase
     public async Task<ActionResult<IEnumerable<Adres>>> GetAll()
     {
         var adressen = await _context.Adressen.ToListAsync();
-        if (adressen.Any()) 
+        if (adressen.Count == 0) 
             return NotFound(new { Message = "Er staan geen adressen in de database" });
 
         return Ok(new { adressen });

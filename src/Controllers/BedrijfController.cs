@@ -42,7 +42,7 @@ public class BedrijfController(Context context) : ControllerBase
                 new { Message = $"Bedrijf met KvK-Nummer {bedrijfDto.KvkNummer} bestaat al" });
 
         var nieuwBedrijf = new Bedrijf(bedrijfDto.KvkNummer, bedrijfDto.Bedrijfsnaam, bedrijfDto.Domeinnaam,
-            bedrijfDto.AdresId);
+            bedrijfDto.BedrijfAdres);
 
         _context.Bedrijven.Add(nieuwBedrijf);
         await _context.SaveChangesAsync();
