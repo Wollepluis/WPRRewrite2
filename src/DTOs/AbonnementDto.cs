@@ -2,11 +2,11 @@
 
 namespace WPRRewrite2.DTOs;
 
-public class AbonnementDto(int maxVoertuigen, int maxWerknemers, DateOnly begindatum, string abonnementType
+public class AbonnementDto(int maxVoertuigen, int maxMedewerkers, DateOnly begindatum, string abonnementType
     , int bedrijfId)
 {
     public int MaxVoertuigen { get; set; } = maxVoertuigen;
-    public int MaxWerknemers { get; set; } = maxWerknemers;
+    public int MaxMedewerkers { get; set; } = maxMedewerkers;
     public DateOnly BeginDatum { get; set; } = begindatum;
     
     [MaxLength(255)]public string AbonnementType { get; set; } = abonnementType;

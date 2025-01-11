@@ -7,7 +7,7 @@ public interface IAbonnement
 {
     int AbonnementId { get; set; }
     int MaxVoertuigen { get; set; }
-    int MaxWerknemers { get; set; }
+    int MaxMedewerkers { get; set; }
     string AbonnementType { get; set; }
     DateOnly BeginDatum { get; set; }
     

@@ -9,7 +9,7 @@ public abstract class Abonnement : IAbonnement
 {
     public int AbonnementId { get; set; }
     public int MaxVoertuigen { get; set; }
-    public int MaxWerknemers { get; set; }
+    public int MaxMedewerkers { get; set; }
     public DateOnly BeginDatum { get; set; }
     
     [MaxLength(255)]public string AbonnementType { get; set; }
@@ -18,11 +18,10 @@ public abstract class Abonnement : IAbonnement
     [ForeignKey(nameof(BedrijfId))] public Bedrijf Bedrijf { get; set; }
 
     protected Abonnement() {}
-
-    protected Abonnement(int maxVoertuigen, int maxWerknemers, DateOnly begindatum, string abonnementType, int bedrijfId)
+    protected Abonnement(int maxVoertuigen, int maxMedewerkers, DateOnly begindatum, string abonnementType, int bedrijfId)
     {
         MaxVoertuigen = maxVoertuigen;
-        MaxWerknemers = maxWerknemers;
+        MaxMedewerkers = maxMedewerkers;
         BeginDatum = begindatum;
         AbonnementType = abonnementType;
         BedrijfId = bedrijfId;
@@ -34,14 +33,14 @@ public abstract class Abonnement : IAbonnement
         {
             "UpFront" => new UpFront(
                 gegevens.MaxVoertuigen, 
-                gegevens.MaxWerknemers, 
+                gegevens.MaxMedewerkers, 
                 gegevens.BeginDatum,
                 gegevens.AbonnementType, 
                 gegevens.BedrijfId
             ),
             "PayAsYouGo" => new PayAsYouGo(
                 gegevens.MaxVoertuigen, 
-                gegevens.MaxWerknemers, 
+                gegevens.MaxMedewerkers, 
                 gegevens.BeginDatum,
                 gegevens.AbonnementType, 
                 gegevens.BedrijfId

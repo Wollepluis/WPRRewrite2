@@ -48,7 +48,7 @@ public class AbonnementController(Context context) : ControllerBase
             .Any(a => a.AbonnementType == abonnementDto.AbonnementType 
                       && a.BedrijfId == abonnementDto.BedrijfId 
                       && a.MaxVoertuigen == abonnementDto.MaxVoertuigen 
-                      && a.MaxWerknemers == abonnementDto.MaxWerknemers);
+                      && a.MaxMedewerkers == abonnementDto.MaxMedewerkers);
         if (checkAbonnement)
             return BadRequest(new { Message = "Een abonnement met deze gegevens is nog steeds geldig" });
 
