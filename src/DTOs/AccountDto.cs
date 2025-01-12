@@ -1,18 +1,22 @@
-﻿namespace WPRRewrite2.DTOs;
-
-public class AccountDto(string accountType, string email, string wachtwoord, string naam, int telefoonnummer, 
-    int bedrijfId, int adresId)
+﻿namespace WPRRewrite2.DTOs
 {
-    public string AccountType { get; set; } = accountType;
-    public string Email { get; set; } = email;
-    public string Wachtwoord { get; set; } = wachtwoord;
-    public string Naam { get; set; } = naam;
-    public int Telefoonnummer { get; set; } = telefoonnummer;
-
-    public int BedrijfId { get; set; } = bedrijfId;
-    public int AdresId { get; set; } = adresId;
-
-
-
-
+    public class AccountDto
+    {
+        public AccountDto(string accountType, string email, string wachtwoord, string naam, int nummer, int adresId)
+        {
+            AccountType = accountType;
+            Email = email;
+            Wachtwoord = wachtwoord;
+            Naam = naam;
+            Nummer = nummer;
+            AdresId = adresId;
+        }
+        
+        public string AccountType { get; set; }
+        public string Email { get; set; }
+        public string Wachtwoord { get; set; }
+        public string Naam { get; set; }
+        public int Nummer { get; set; }
+        public int AdresId { get; set; }
+    }
 }

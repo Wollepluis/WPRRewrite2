@@ -12,6 +12,7 @@ public abstract class Account : IAccount
     public int AccountId { get; set; }
     [MaxLength(255)] public string Email { get; set; }
     [MaxLength(255)] public string Wachtwoord { get; set; }
+    public string AccountType { get; set; }
     
     protected Account() {}
     protected Account(string email, string wachtwoord)
@@ -27,7 +28,7 @@ public abstract class Account : IAccount
         return PasswordHasher.VerifyHashedPassword(this, Wachtwoord, wachtwoord);
     }
 
-    public static Account MaakAccount(AccountDto gegevens)
+    public static Account MaakAccount(AccountDto gegevens, int adresId, int bedrijfId)
     {
         return gegevens.AccountType switch
         {
@@ -35,18 +36,18 @@ public abstract class Account : IAccount
                 gegevens.Email, 
                 gegevens.Wachtwoord, 
                 gegevens.Naam,
-                gegevens.Telefoonnummer, 
-                gegevens.AdresId
+                gegevens.Nummer, 
+                adresId
                 ),
             "ZakelijkBeheerder" => new AccountZakelijkBeheerder(
                 gegevens.Email, 
                 gegevens.Wachtwoord, 
-                gegevens.BedrijfId
+                bedrijfId
                 ),
             "ZakelijkHuurder" => new AccountZakelijkHuurder(
                 gegevens.Email, 
                 gegevens.Wachtwoord, 
-                gegevens.BedrijfId
+                bedrijfId
                 ),
             "Frontoffice" => new AccountMedewerkerFrontoffice(
                 gegevens.Email, 

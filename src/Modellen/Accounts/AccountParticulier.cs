@@ -25,6 +25,6 @@ public class AccountParticulier : Account
         Email = nieuweGegevens.Email;
         Wachtwoord = nieuweGegevens.Wachtwoord;
         Naam = nieuweGegevens.Naam;
-        Telefoonnummer = nieuweGegevens.Telefoonnummer;
+        Telefoonnummer = nieuweGegevens.Nummer;
     }
 }

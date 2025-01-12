@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WPRRewrite2.DTOs;
 using WPRRewrite2.Interfaces;
+using WPRRewrite2.Modellen;
 using WPRRewrite2.Modellen.Accounts;
 
 namespace WPRRewrite2.Controllers;
@@ -36,7 +37,7 @@ public class AccountController(Context context) : ControllerBase
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
-        var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Email.ToLower() == login.Email.ToLower());
+        var account = await _context.Accounts.FirstOrDefaultAsync(a => a.Email == login.Email);
         if (account == null) 
             return Unauthorized(new { Message = $"Account {login.Email} niet gevonden" });
         
@@ -52,8 +53,38 @@ public class AccountController(Context context) : ControllerBase
         var checkEmail = _context.Accounts.Any(a => a.Email == gegevens.Email);
         if (checkEmail) 
             return BadRequest("Een gebruiker met deze Email bestaat al");
+
+        Adres adres;
+        Bedrijf bedrijf;
+        Account nieuwAccount = null;
         
-        var nieuwAccount = Account.MaakAccount(gegevens);
+        switch (gegevens.AccountType)
+        {
+            case "ZakelijkBeheerder":
+            {
+                bedrijf = await _context.Bedrijven.FindAsync(gegevens.Nummer);
+                if (bedrijf == null)
+                    return BadRequest("Ongeldige bedrijfId");
+
+                adres = await _context.Adressen.FindAsync(gegevens.AdresId);
+                if (adres == null)
+                    return BadRequest("Ongeldige adresId");
+                
+                nieuwAccount = Account.MaakAccount(gegevens, adres.AdresId, bedrijf.BedrijfId);
+                
+                break;
+            }
+            case "Particulier":
+            {
+                adres = await _context.Adressen.FindAsync(gegevens.AdresId);
+                if (adres == null)
+                    return BadRequest("Ongeldige adresId");
+                
+                nieuwAccount = Account.MaakAccount(gegevens, adres.AdresId, 0);
+                
+                break;
+            }
+        }
     
         _context.Accounts.Add(nieuwAccount);
         await _context.SaveChangesAsync();
