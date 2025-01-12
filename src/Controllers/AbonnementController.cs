@@ -28,7 +28,7 @@ public class AbonnementController(Context context) : ControllerBase
         if (abonnementen.Count == 0)
             return NotFound(new { Message = "Er staan geen abonnementen in de database" });
         
-        return Ok(new { abonnementen });
+        return Ok(abonnementen);
     }
 
     [HttpGet]
@@ -38,7 +38,7 @@ public class AbonnementController(Context context) : ControllerBase
         if (abonnement == null)
             return NotFound(new { Message = $"Abonnement met ID {id} staat niet in de database" });
 
-        return Ok(new { abonnement });
+        return Ok(abonnement);
     }
 
     [HttpPost("Create")]

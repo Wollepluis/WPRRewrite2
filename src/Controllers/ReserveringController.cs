@@ -27,7 +27,7 @@ public class ReserveringController(Context context) : ControllerBase
         if (reserveringen.Count == 0)
             return NotFound(new { Message = "Er staan geen reserveringen in de database" });
 
-        return Ok(new { reserveringen });
+        return Ok(reserveringen);
     }
 
     [HttpGet("GetSpecific")]
@@ -37,7 +37,7 @@ public class ReserveringController(Context context) : ControllerBase
         if (reservering == null) 
             return NotFound(new { Message = $"Reservering met ID {id} staat niet in de database" });
 
-        return Ok(new { reservering });
+        return Ok(reservering);
     }
 
     [HttpDelete("Delete")]

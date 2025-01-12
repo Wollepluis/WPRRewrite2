@@ -33,7 +33,7 @@ public class VoertuigController(Context context) : ControllerBase
             return NotFound(new { Message = "Er staan geen voertuigen in de database" });
         
 
-        return Ok(new { Voertuigen = voertuigen });
+        return Ok(voertuigen);
     }
 
     [HttpGet("GetSpecific")]
@@ -43,7 +43,7 @@ public class VoertuigController(Context context) : ControllerBase
         if (voertuig == null)
             return NotFound(new { Message = $"Voertuig met ID {id} staat niet in de database" });
 
-        return Ok(new { voertuig });
+        return Ok(voertuig);
     }
 
     [HttpPost("Create")]

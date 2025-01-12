@@ -18,7 +18,7 @@ public class BedrijfController(Context context) : ControllerBase
         if (bedrijven.Count == 0) 
             return NotFound(new { Message = "Er staan geen bedrijven in de database" });
 
-        return Ok(new { bedrijven });
+        return Ok(bedrijven);
     }
 
     [HttpGet("GetSpecific")]
@@ -28,7 +28,7 @@ public class BedrijfController(Context context) : ControllerBase
         if (bedrijf == null)
             return NotFound(new { Message = $"Bedrijf met ID {id} staat niet in de database" });
 
-        return Ok(new { bedrijf });
+        return Ok(bedrijf);
     }
     
     // Get Bedrijfstatistieken
@@ -47,6 +47,6 @@ public class BedrijfController(Context context) : ControllerBase
         _context.Bedrijven.Add(nieuwBedrijf);
         await _context.SaveChangesAsync();
 
-        return Ok(new { Message = $"Bedrijf {nieuwBedrijf.Bedrijfsnaam} toegevoegd" });
+        return Ok(new { nieuwBedrijf.BedrijfId });
     }
 }

@@ -21,7 +21,7 @@ public class AccountController(Context context) : ControllerBase
         if (accounts.Count == 0) 
             return NotFound(new { Message = "Er staan geen accounts in de database" });
 
-        return Ok(new { accounts });
+        return Ok(accounts);
     }
 
     [HttpGet("GetSpecifiek")]
@@ -52,47 +52,16 @@ public class AccountController(Context context) : ControllerBase
     {
         var checkEmail = _context.Accounts.Any(a => a.Email == gegevens.Email);
         if (checkEmail) 
-            return BadRequest("Een gebruiker met deze Email bestaat al");
-
-        Adres adres;
-        Bedrijf bedrijf;
-        Account nieuwAccount = null;
+            return BadRequest(new { Message = "Een gebruiker met deze Email bestaat al"});
         
-        switch (gegevens.AccountType)
-        {
-            case "ZakelijkBeheerder":
-            {
-                bedrijf = await _context.Bedrijven.FindAsync(gegevens.Nummer);
-                if (bedrijf == null)
-                    return BadRequest("Ongeldige bedrijfId");
-
-                adres = await _context.Adressen.FindAsync(gegevens.AdresId);
-                if (adres == null)
-                    return BadRequest("Ongeldige adresId");
-                
-                nieuwAccount = Account.MaakAccount(gegevens, adres.AdresId, bedrijf.BedrijfId);
-                
-                break;
-            }
-            case "Particulier":
-            {
-                adres = await _context.Adressen.FindAsync(gegevens.AdresId);
-                if (adres == null)
-                    return BadRequest("Ongeldige adresId");
-                
-                nieuwAccount = Account.MaakAccount(gegevens, adres.AdresId, 0);
-                
-                break;
-            }
-        }
+        var nieuwAccount = Account.MaakAccount(gegevens);
     
         _context.Accounts.Add(nieuwAccount);
         await _context.SaveChangesAsync();
         
         EmailSender.VerstuurBevestigingEmail(nieuwAccount.Email);
-
-        var castedAccount = nieuwAccount.CastAccount(nieuwAccount);
-        return Ok(new { castedAccount, Message = $"Account {nieuwAccount.Email} is succesvol aangemaakt" });
+        
+        return Ok(new { nieuwAccount.Email });
     }
 
     [HttpPut("Update")]

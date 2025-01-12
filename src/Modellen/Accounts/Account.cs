@@ -28,7 +28,7 @@ public abstract class Account : IAccount
         return PasswordHasher.VerifyHashedPassword(this, Wachtwoord, wachtwoord);
     }
 
-    public static Account MaakAccount(AccountDto gegevens, int adresId, int bedrijfId)
+    public static Account MaakAccount(AccountDto gegevens)
     {
         return gegevens.AccountType switch
         {
@@ -37,17 +37,17 @@ public abstract class Account : IAccount
                 gegevens.Wachtwoord, 
                 gegevens.Naam,
                 gegevens.Nummer, 
-                adresId
+                gegevens.AdresId
                 ),
             "ZakelijkBeheerder" => new AccountZakelijkBeheerder(
                 gegevens.Email, 
                 gegevens.Wachtwoord, 
-                bedrijfId
+                gegevens.Nummer
                 ),
             "ZakelijkHuurder" => new AccountZakelijkHuurder(
                 gegevens.Email, 
                 gegevens.Wachtwoord, 
-                bedrijfId
+                gegevens.Nummer
                 ),
             "Frontoffice" => new AccountMedewerkerFrontoffice(
                 gegevens.Email, 

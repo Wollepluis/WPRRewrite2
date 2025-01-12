@@ -18,7 +18,7 @@ public class AdresController(Context context) : ControllerBase
         if (adressen.Count == 0) 
             return NotFound(new { Message = "Er staan geen adressen in de database" });
 
-        return Ok(new { adressen });
+        return Ok(adressen);
     }
 
     [HttpGet("GetSpecific")]
@@ -28,7 +28,7 @@ public class AdresController(Context context) : ControllerBase
         if (adres == null) 
             return NotFound(new { Message = $"Adres met ID {id} staat niet in de database"});
 
-        return Ok(new { adres });
+        return Ok(adres);
     }
 
     [HttpPost("Create")]
