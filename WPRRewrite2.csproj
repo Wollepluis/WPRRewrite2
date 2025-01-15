@@ -29,30 +29,6 @@
       <Compile Update="TestProject\UnitTest1.cs">
         <Link>TestProject1\UnitTest1.cs</Link>
       </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\AccountTests\AccountControllerTests.cs">
-        <Link>TestProject\Tests\AccountTests\AccountControllerTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\AccountTests\AccountParticulierTests.cs">
-        <Link>TestProject\Tests\AccountTests\AccountParticulierTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\ReserveringTests\ReserveringControllerTests.cs">
-        <Link>TestProject\Tests\ReserveringTests\ReserveringControllerTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\ReserveringTests\ReserveringIntegratieTests.cs">
-        <Link>TestProject\Tests\ReserveringTests\ReserveringIntegratieTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\SecurityTests\AuthenticationTests.cs">
-        <Link>TestProject\Tests\SecurityTests\AuthenticationTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\SecurityTests\InputValidationTests.cs">
-        <Link>TestProject\Tests\SecurityTests\InputValidationTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\ToegankelijkheidTests\WCAGTests.cs">
-        <Link>TestProject\Tests\ToegankelijkheidTests\WCAGTests.cs</Link>
-      </Compile>
-      <Compile Update="WPRRewrite2.Tests\Tests\VoertuigTests\VoertuigControllerTests.cs">
-        <Link>TestProject\Tests\VoertuigTests\VoertuigControllerTests.cs</Link>
-      </Compile>
     </ItemGroup>
 
 </Project>
