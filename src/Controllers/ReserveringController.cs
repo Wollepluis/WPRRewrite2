@@ -13,17 +13,16 @@ public class ReserveringController(Context context) : ControllerBase
     [HttpGet("GetAll")]
     public async Task<ActionResult<IEnumerable<Reservering>>> GetAll([FromQuery] int? id)
     {
-        IQueryable<Reservering> query = _context.Reserveringen;
+        IQueryable<Reservering> query = _context.Reserveringen
+            .Include(r => r.Voertuig);
 
         if (id.HasValue)
         {
-            query = query
-                .Include(r => r.Voertuig)
-                .Where(r => r.AccountId == id);
+            query = query.Where(r => r.AccountId == id);
         }
-        
+
         var reserveringen = await query.ToListAsync();
-        
+
         if (reserveringen.Count == 0)
             return NotFound(new { Message = "Er staan geen reserveringen in de database" });
 

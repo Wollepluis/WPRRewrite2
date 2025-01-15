@@ -23,8 +23,6 @@ public class Context : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(builder);
-
         builder.Entity<Account>()
             .HasDiscriminator<string>("AccountType")
             .HasValue<AccountParticulier>("ParticulierAccount")
@@ -43,6 +41,13 @@ public class Context : DbContext
             .HasDiscriminator<string>("AbonnementType")
             .HasValue<UpFront>("UpFront")
             .HasValue<PayAsYouGo>("PayAsYouGo");
+        
+        builder.Entity<AccountParticulier>()
+            .HasOne(a => a.Adres)
+            .WithOne()
+            .HasForeignKey<AccountParticulier>("AdresId"); 
+        
+        base.OnModelCreating(builder);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder builder)

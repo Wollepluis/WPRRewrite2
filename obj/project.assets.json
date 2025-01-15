@@ -5228,19 +5228,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mark2\\.nuget\\packages\\": {}
+    "C:\\Users\\Mark\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mark2\\RiderProjects\\WPRRewrite3\\WPRRewrite2.csproj",
+      "projectUniqueName": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite3\\WPRRewrite2.csproj",
       "projectName": "WPRRewrite2",
-      "projectPath": "C:\\Users\\mark2\\RiderProjects\\WPRRewrite3\\WPRRewrite2.csproj",
-      "packagesPath": "C:\\Users\\mark2\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mark2\\RiderProjects\\WPRRewrite3\\obj\\",
+      "projectPath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite3\\WPRRewrite2.csproj",
+      "packagesPath": "C:\\Users\\Mark\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mark\\RiderProjects\\WPRRewrite3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mark2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mark\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5248,6 +5248,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5264,9 +5265,8 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "all"
-      },
-      "SdkAnalysisLevel": "9.0.100"
+        "auditMode": "direct"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -5316,24 +5316,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          },
-          {
-            "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.11, 8.0.11]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -5342,7 +5324,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\mark2\\.dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

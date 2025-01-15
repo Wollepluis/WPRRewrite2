@@ -30,6 +30,19 @@ public class AccountController(Context context) : ControllerBase
         var account = await _context.Accounts.FindAsync(id);
         if (account == null) 
             return NotFound(new { Message = $"Account met ID {id} staat niet in de database"});
+
+        if (account is AccountParticulier)
+        {
+            var accountP = await _context.Accounts
+                .OfType<AccountParticulier>()
+                .Include(a => a.Adres)
+                .FirstOrDefaultAsync(a => a.AccountId == id);
+            
+            if (accountP == null) 
+                return NotFound(new { Message = $"Account met ID {id} staat niet in de database"});
+            
+            return Ok(accountP);
+        }
         
         return Ok(account.CastAccount(account));
     }

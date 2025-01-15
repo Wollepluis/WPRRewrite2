@@ -1,12 +1,11 @@
 {
   "Version": 1,
-  "Hash": "tFDKLuSqRvND+L7DSTsedAAYj9pSSrM+k0x73/u/RUs=",
+  "Hash": "358MGgk247EvvmCnTQPQr0JF/upNeh32EcpcHpuISXk=",
   "Source": "WPRRewrite2",
   "BasePath": "_content/WPRRewrite2",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "Assets": []
 }
