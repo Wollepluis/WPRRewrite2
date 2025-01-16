@@ -22,11 +22,11 @@ public class AdresController(Context context) : ControllerBase
     }
 
     [HttpGet("GetSpecific")]
-    public async Task<ActionResult<Adres>> GetSpecific([FromQuery] int id)
+    public async Task<ActionResult<Adres>> GetSpecific([FromQuery] int adresId)
     {
-        var adres = await _context.Adressen.FindAsync(id);
+        var adres = await _context.Adressen.FindAsync(adresId);
         if (adres == null) 
-            return NotFound(new { Message = $"Adres met ID {id} staat niet in de database"});
+            return NotFound(new { Message = $"Adres met ID {adresId} staat niet in de database"});
 
         return Ok(adres);
     }
@@ -38,22 +38,30 @@ public class AdresController(Context context) : ControllerBase
             .Where(a => a.Postcode == gegevens.Postcode && a.Huisnummer == gegevens.Huisnummer).FirstOrDefaultAsync();
         if (adres == null)
         {
-            adres = await Adres.ZoekAdres(gegevens.Postcode, gegevens.Huisnummer);
-            if (adres == null) return BadRequest(new { Message = "Adres van ingevulde gegevens bestaat niet" });
+            try
+            {
+                adres = await Adres.ZoekAdres(gegevens.Postcode, gegevens.Huisnummer);
+            }
+            catch (Exception e)
+            {
+                return NotFound("Het adres is niet gevonden met de bijbehorende postcode en huisnummer...");
+            }
+            
+            if (adres == null) return NotFound("Het adres is niet gevonden met de bijbehorende postcode en huisnummer...");
+        
+            _context.Adressen.Add(adres);
+            await _context.SaveChangesAsync();
         }
-
-        _context.Adressen.Add(adres);
-        await _context.SaveChangesAsync();
 
         return Ok(new { adres.AdresId });
     }
     
     [HttpDelete("Delete")]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete([FromQuery] int adresId)
     {
-        var adres = await _context.Adressen.FindAsync(id);
+        var adres = await _context.Adressen.FindAsync(adresId);
         if (adres == null) 
-            return NotFound(new { Message = $"Adres met ID {id} staat niet in de database" });
+            return NotFound(new { Message = $"Adres met ID {adresId} staat niet in de database" });
 
         _context.Adressen.Remove(adres);
         await _context.SaveChangesAsync();

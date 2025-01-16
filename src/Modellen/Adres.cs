@@ -60,4 +60,6 @@ public class Adres
 
         return null;
     }
+    
+    //Methode Registratiecheck
 }

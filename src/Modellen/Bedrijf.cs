@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WPRRewrite2.Modellen.Abbo;
 
 namespace WPRRewrite2.Modellen;
 
@@ -12,6 +13,9 @@ public class Bedrijf
 
     public int BedrijfAdres { get; set; }
     [ForeignKey(nameof(BedrijfAdres))] public Adres Adres { get; set; }
+    
+    public int AbonnementId { get; set; }
+    [ForeignKey(nameof(AbonnementId))] public Abonnement Abonnement { get; set; }
     
     public Bedrijf() {}
 

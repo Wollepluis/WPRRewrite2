@@ -13,14 +13,14 @@ public class AbonnementController(Context context) : ControllerBase
     private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("GetAll")]
-    public async Task<ActionResult<IEnumerable<IAbonnement>>> GetAll([FromQuery] int? id)
+    public async Task<ActionResult<IEnumerable<IAbonnement>>> GetAll([FromQuery] int? bedrijfId)
     {
         IQueryable<IAbonnement> query = _context.Abonnementen;
         
-        if (id.HasValue)
+        if (bedrijfId.HasValue)
         {
             query = query
-                .Where(a => a.BedrijfId == id);
+                .Where(a => a.BedrijfId == bedrijfId);
         }
 
         var abonnementen = await query.ToListAsync();
@@ -31,12 +31,12 @@ public class AbonnementController(Context context) : ControllerBase
         return Ok(abonnementen);
     }
 
-    [HttpGet]
-    public async Task<ActionResult<IAbonnement>> GetSpecific([FromQuery] int id)
+    [HttpGet("GetSpecific")]
+    public async Task<ActionResult<IAbonnement>> GetSpecific([FromQuery] int abonnementId)
     {
-        var abonnement = await _context.Abonnementen.FindAsync(id);
+        var abonnement = await _context.Abonnementen.FindAsync(abonnementId);
         if (abonnement == null)
-            return NotFound(new { Message = $"Abonnement met ID {id} staat niet in de database" });
+            return NotFound(new { Message = $"Abonnement met ID {abonnementId} staat niet in de database" });
 
         return Ok(abonnement);
     }

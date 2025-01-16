@@ -37,11 +37,11 @@ public class VoertuigController(Context context) : ControllerBase
     }
 
     [HttpGet("GetSpecific")]
-    public async Task<ActionResult<IVoertuig>> GetSpecific([FromQuery] int id)
+    public async Task<ActionResult<IVoertuig>> GetSpecific([FromQuery] int voertuigId)
     {
-        var voertuig = await _context.Voertuigen.FindAsync(id);
+        var voertuig = await _context.Voertuigen.FindAsync(voertuigId);
         if (voertuig == null)
-            return NotFound(new { Message = $"Voertuig met ID {id} staat niet in de database" });
+            return NotFound(new { Message = $"Voertuig met ID {voertuigId} staat niet in de database" });
 
         return Ok(voertuig);
     }
@@ -76,11 +76,11 @@ public class VoertuigController(Context context) : ControllerBase
     }
 
     [HttpDelete("Delete")]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete([FromQuery] int voertuigId)
     {
-        var voertuig = await _context.Voertuigen.FindAsync(id);
+        var voertuig = await _context.Voertuigen.FindAsync(voertuigId);
         if (voertuig == null)
-            return NotFound(new { Message = $"Voertuig met ID {id} staat niet in de database" });
+            return NotFound(new { Message = $"Voertuig met ID {voertuigId} staat niet in de database" });
 
         _context.Voertuigen.Remove(voertuig);
         await _context.SaveChangesAsync();

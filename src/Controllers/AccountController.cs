@@ -15,7 +15,7 @@ public class AccountController(Context context) : ControllerBase
     private readonly Context _context = context ?? throw new ArgumentNullException(nameof(context));
 
     [HttpGet("GetAll")]
-    public async Task<ActionResult<IEnumerable<IAccount>>> GetAll([FromQuery] string? accountType, [FromQuery] int? bedrijfId)
+    public async Task<ActionResult<IEnumerable<IAccount>>> GetAll([FromQuery] string? accountType)
     {
         IQueryable<IAccount> query = _context.Accounts;
 
@@ -43,26 +43,27 @@ public class AccountController(Context context) : ControllerBase
         }
 
         var accounts = query.ToListAsync();
+        if (accounts == null) return NotFound(new { Message = "Er staan geen accounts van dit type in de database" });
 
         return Ok(accounts);
     }
 
-    [HttpGet("GetSpecifiek")]
-    public async Task<ActionResult<IAccount>> GetSpecific([FromQuery] int id)
+    [HttpGet("GetSpecific")]
+    public async Task<ActionResult<IAccount>> GetSpecific([FromQuery] int accountId)
     {
-        var account = await _context.Accounts.FindAsync(id);
+        var account = await _context.Accounts.FindAsync(accountId);
         if (account == null) 
-            return NotFound(new { Message = $"Account met ID {id} staat niet in de database"});
+            return NotFound(new { Message = $"Account met ID {accountId} staat niet in de database"});
 
         if (account is AccountParticulier)
         {
             var accountP = await _context.Accounts
                 .OfType<AccountParticulier>()
                 .Include(a => a.Adres)
-                .FirstOrDefaultAsync(a => a.AccountId == id);
+                .FirstOrDefaultAsync(a => a.AccountId == accountId);
             
             if (accountP == null) 
-                return NotFound(new { Message = $"Account met ID {id} staat niet in de database"});
+                return NotFound(new { Message = $"Account met ID {accountId} staat niet in de database"});
             
             return Ok(accountP);
         }
@@ -83,7 +84,7 @@ public class AccountController(Context context) : ControllerBase
         return Ok(account.CastAccount(account));
     }
     
-    [HttpPost("Registreer")]
+    [HttpPost("Register")]
     public async Task<ActionResult<IAccount>> Create([FromBody] AccountDto gegevens)
     {
         var checkEmail = _context.Accounts.Any(a => a.Email == gegevens.Email);
@@ -117,11 +118,11 @@ public class AccountController(Context context) : ControllerBase
     //zakelijk huurder verwijderen van abonnement
 
     [HttpDelete("Delete")]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete([FromQuery] int accountId)
     {
-        var account = await _context.Accounts.FindAsync(id);
+        var account = await _context.Accounts.FindAsync(accountId);
         if (account == null) 
-            return NotFound(new { Message = $"Account met ID {id} staat niet in de database" });
+            return NotFound(new { Message = $"Account met ID {accountId} staat niet in de database" });
 
         _context.Accounts.Remove(account);
         await _context.SaveChangesAsync();
