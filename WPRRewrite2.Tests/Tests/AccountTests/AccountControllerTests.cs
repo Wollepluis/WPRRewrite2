@@ -45,7 +45,7 @@ namespace WPRRewrite2.Tests.AccountTests
         public async Task GetAll_AccountsAanwezig_RetourneertOk()
         {
             // Arrange
-            _mockContext.Accounts.Add(new Account { Email = "test@test.com" });
+            _mockContext.Accounts.Add(new AccountParticulier("test@test.com", "test123", "Test Naam", 1234567890, 1));
             await _mockContext.SaveChangesAsync();
 
             // Act
