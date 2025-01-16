@@ -1,8 +1,6 @@
 ﻿// Tests/ReserveringTests/ReserveringControllerTests.cs
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using NUnit.Framework;
 using WPRRewrite2.Controllers;
 using WPRRewrite2.Modellen;
 
@@ -11,30 +9,93 @@ namespace WPRRewrite2.Tests.ReserveringTests
     [TestFixture]
     public class ReserveringControllerTests
     {
-        private Mock<Context> _mockContext;
+        private Context _mockContext;
         private ReserveringController _controller;
 
         [SetUp]
         public void Setup()
         {
-            _mockContext = new Mock<Context>();
-            _controller = new ReserveringController(_mockContext.Object);
+            // Gebruik een unieke naam voor de in-memory database
+            var options = new DbContextOptionsBuilder<Context>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+
+            _mockContext = new Context(options);
+            _controller = new ReserveringController(_mockContext);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _mockContext.Dispose();
         }
 
         [Test]
         public async Task GetAll_GeenReserveringen_RetourneertNotFound()
         {
-            // Arrange
-            var mockReserveringen = new Mock<DbSet<Reservering>>();
-            _mockContext.Setup(c => c.Reserveringen).Returns(mockReserveringen.Object);
-            mockReserveringen.Setup(m => m.ToListAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new List<Reservering>());
-
             // Act
-            var resultaat = await _controller.GetAll();
+            var result = await _controller.GetAll();
 
             // Assert
-            Assert.That(resultaat.Result, Is.InstanceOf<NotFoundObjectResult>());
+            Assert.That(result.Result, Is.TypeOf<NotFoundObjectResult>());
+        }
+
+        [Test]
+        public async Task GetAll_ReserveringenAanwezig_RetourneertOk()
+        {
+            // Arrange: Voeg een reservering toe aan de in-memory database
+            var testDate = new DateTime(2025, 1, 1); // Gebruik een vaste datum
+            _mockContext.Reserveringen.Add(new Reservering
+            {
+                AccountId = 1,
+                VoertuigId = 1,
+                Begindatum = new DateOnly(testDate.Year, testDate.Month, testDate.Day),
+                Einddatum = new DateOnly(testDate.Year, testDate.Month, testDate.Day).AddDays(1),
+                IsGoedgekeurd = true,
+                TotaalPrijs = 100.0,
+                IsBetaald = false
+            });
+            await _mockContext.SaveChangesAsync();
+
+            // Act
+            var result = await _controller.GetAll();
+
+            // Assert
+            Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
+        }
+
+        [Test]
+        public async Task GetAccountReserveringen_GeenReserveringenVoorAccount_RetourneertNotFound()
+        {
+            // Act
+            var result = await _controller.GetAccountReserveringen(1);
+
+            // Assert
+            Assert.That(result.Result, Is.TypeOf<NotFoundObjectResult>());
+        }
+
+        [Test]
+        public async Task GetAccountReserveringen_ReserveringenVoorAccount_RetourneertOk()
+        {
+            // Arrange: Voeg reservering toe aan het account
+            var testDate = new DateTime(2025, 1, 1);
+            _mockContext.Reserveringen.Add(new Reservering
+            {
+                AccountId = 1,
+                VoertuigId = 1,
+                Begindatum = new DateOnly(testDate.Year, testDate.Month, testDate.Day),
+                Einddatum = new DateOnly(testDate.Year, testDate.Month, testDate.Day).AddDays(1),
+                IsGoedgekeurd = true,
+                TotaalPrijs = 100.0,
+                IsBetaald = false
+            });
+            await _mockContext.SaveChangesAsync();
+
+            // Act
+            var result = await _controller.GetAccountReserveringen(1);
+
+            // Assert
+            Assert.That(result.Result, Is.TypeOf<OkObjectResult>());
         }
     }
 }
