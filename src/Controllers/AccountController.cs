@@ -17,9 +17,32 @@ public class AccountController(Context context) : ControllerBase
     [HttpGet("GetAll")]
     public async Task<ActionResult<IEnumerable<IAccount>>> GetAll([FromQuery] string? accountType, [FromQuery] int? bedrijfId)
     {
-        var accounts = await _context.Accounts.ToListAsync();
-        if (accounts.Count == 0) 
-            return NotFound(new { Message = "Er staan geen accounts in de database" });
+        IQueryable<IAccount> query = _context.Accounts;
+
+        if (accountType != null)
+        {
+            switch (accountType)
+            {
+                case "partuculier":
+                    query.OfType<AccountParticulier>();
+                    break;
+                case "zakelijkbeheerder":
+                    query.OfType<AccountZakelijkBeheerder>();
+                    break;
+                case "zakelijkhuurder":
+                    query.OfType<AccountZakelijkHuurder>();
+                    break;
+                case "frontoffice":
+                    query.OfType<AccountMedewerkerFrontoffice>();
+                    break;
+                case "backoffice":
+                    query.OfType<AccountMedewerkerBackoffice>();
+                    break;
+            }
+            return null;
+        }
+
+        var accounts = query.ToListAsync();
 
         return Ok(accounts);
     }
