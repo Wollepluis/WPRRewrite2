@@ -23,7 +23,7 @@ public class AccountController(Context context) : ControllerBase
         {
             switch (accountType)
             {
-                case "partuculier":
+                case "particulier":
                     query.OfType<AccountParticulier>();
                     break;
                 case "zakelijkbeheerder":
