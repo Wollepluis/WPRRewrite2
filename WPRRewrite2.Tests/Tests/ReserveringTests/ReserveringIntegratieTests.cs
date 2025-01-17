@@ -21,12 +21,12 @@ namespace WPRRewrite2.Tests.ReserveringTests
             var options = new DbContextOptionsBuilder<Context>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-    
+
             _context = new Context(options);
-            
+
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
-    
+
             _reserveringController = new ReserveringController(_context);
             _voertuigController = new VoertuigController(_context);
         }
@@ -40,6 +40,7 @@ namespace WPRRewrite2.Tests.ReserveringTests
 
             var voertuig = new Auto("AB-123-C", "Toyota", "Yaris", "Blauw", 2020, 25000, "Benzine");
             _context.Voertuigen.Add(voertuig);
+
             await _context.SaveChangesAsync();
 
             var reservering = new ReserveringDto
@@ -50,15 +51,20 @@ namespace WPRRewrite2.Tests.ReserveringTests
                 Einddatum = DateOnly.FromDateTime(DateTime.Now.AddDays(3))
             };
 
-            // Act & Assert
-            var beschikbaarheid = await _voertuigController.GetSpecific(voertuig.VoertuigId);
-            Assert.That(beschikbaarheid.Value, Is.Not.Null);
+            // Act
+            var beschikbaarheidResult = await _voertuigController.GetSpecific(voertuig.VoertuigId);
+
+            // Assert
+            Assert.That(beschikbaarheidResult.Value, Is.Not.Null);
+            Assert.That(beschikbaarheidResult.Value.VoertuigId, Is.EqualTo(voertuig.VoertuigId));
+            Assert.That(beschikbaarheidResult.Value.Kenteken, Is.EqualTo(voertuig.Kenteken));
         }
-        
+
         [OneTimeTearDown]
         public void CleanupDatabase()
         {
-            _context.Dispose(); 
+            _context.Dispose();
         }
     }
+
 }
