@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using WPRRewrite2.DTOs;
 using WPRRewrite2.Modellen;
+using WPRRewrite2.Modellen.Accounts;
 
 namespace WPRRewrite2.Controllers;
 
@@ -33,6 +34,58 @@ public class BedrijfController(Context context) : ControllerBase
     
     // Get Bedrijfstatistieken
 
+    [HttpDelete("VerwijderBedrijf")]
+    public async Task<IActionResult> DeleteBedrijf(int accountId)
+    {
+        try
+        {
+            var zakelijkBeheerder = await _context.Accounts
+                .OfType<AccountZakelijkBeheerder>()
+                .FirstOrDefaultAsync(a => a.AccountId == accountId);
+            
+            if (zakelijkBeheerder == null)
+                return NotFound("Zakelijk beheerder niet gevonden.");
+
+            var bedrijf = await _context.Bedrijven
+                .FindAsync(zakelijkBeheerder.BedrijfId);
+            
+            if (bedrijf == null)
+                return NotFound("Er is geen bedrijf gevonden.");
+
+            var abonnement = await _context.Abonnementen
+                .FindAsync(accountId);
+            
+            if (abonnement == null)
+                return NotFound("Abonnement niet gevonden.");
+
+            bedrijf.AbonnementId = 0;
+            await _context.SaveChangesAsync();
+
+            var bedrijfMetAbonnement = await _context.Bedrijven
+                .FirstOrDefaultAsync(b => b.AbonnementId == abonnement.AbonnementId);
+            
+            if (bedrijfMetAbonnement == null)
+            {
+                _context.Abonnementen.Remove(abonnement);
+                await _context.SaveChangesAsync();
+            }
+
+            _context.Bedrijven.Remove(bedrijf);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return Unauthorized("U heeft de rechten niet om het account te verwijderen.");
+        }
+        catch (Exception ex)
+        {
+            // Log the exception here
+            return StatusCode(500, "Er is een fout opgetreden bij het verwijderen van het bedrijf.");
+        }
+    }
+    
     [HttpPost("Create")]
     public async Task<ActionResult<Bedrijf>> Create([FromBody] BedrijfDto bedrijfDto)
     {
@@ -48,23 +101,5 @@ public class BedrijfController(Context context) : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok(new { nieuwBedrijf.BedrijfId });
-    }
-    
-    [HttpDelete("Delete")]
-    public async Task<IActionResult> DeleteBedrijf(int bedrijfId)
-    {
-        try
-        {
-            var bedrijf = await _context.Bedrijven.FindAsync(bedrijfId);
-            if (bedrijf == null) return NotFound("Er is geen bedrijf gevonden...");
-            
-            _context.Bedrijven.Remove(bedrijf);
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-        catch (Exception e)
-        {
-            return Unauthorized("U heeft de rechten niet om het acccount te verwijderen...");
-        }
     }
 }
